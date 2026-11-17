@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugas FSPro IRL</title>
+
+  <!-- Font untuk Hero Editorial Cinematic & CV -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       1. VARIABEL GLOBAL & RESET DASAR
+       ========================================= */
+    :root {
+      --color-primary-text: #0f172a;
+      --color-muted-text: hsl(215, 25%, 32%);
+      --color-btn-bg: #000000;
+      --color-btn-text: #ffffff;
+      --color-bg-fallback: hsl(201, 100%, 13%);
+      --font-display: 'Instrument Serif', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-primary-text);
+      background-color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* =========================================
+       2. HERO SECTION (EDITORIAL CINEMATIC)
+       ========================================= */
+    .hero-wrapper {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--color-bg-fallback);
+      overflow: hidden;
+    }
+
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.25);
+      z-index: 2;
+    }
+
+    /* Navigation Bar 3 Kolom */
+    .navbar {
+      position: relative;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--color-primary-text);
+      text-decoration: none;
+      justify-self: start;
+    }
+
+    .brand-logo sup {
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      justify-self: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-primary-text);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.7;
+    }
+
+    .nav-action {
+      justify-self: end;
+    }
+
+    /* Pill Action Button */
+    .pill-btn {
+      display: inline-block;
+      background-color: var(--color-btn-bg);
+      color: var(--color-btn-text);
+      border: none;
+      border-radius: 9999px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, background-color 0.2s ease;
+    }
+
+    .pill-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .pill-btn--sm {
+      padding: 10px 24px;
+      font-size: 14px;
+    }
+
+    .pill-btn--lg {
+      padding: 20px 56px;
+      font-size: 16px;
+      margin-top: 48px;
+    }
+
+    /* Konten Tengah Hero */
+    .hero-content {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -2.46px;
+      color: var(--color-primary-text);
+      max-width: 900px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.625;
+      color: var(--color-muted-text);
+      max-width: 670px;
+      margin-top: 24px;
+    }
+
+    /* Animasi Entrance Bertahap */
+    @keyframes fadeRise {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-item {
+      opacity: 0;
+      animation: fadeRise 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.4s; }
+
+    /* =========================================
+       3. SECTION DIREKTORI 3 CV
+       ========================================= */
+    .cv-showcase-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 96px 24px 48px;
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .showcase-header h2 {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: -1.5px;
+      color: var(--color-primary-text);
+      margin-bottom: 12px;
+    }
+
+    .showcase-header p {
+      font-size: 16px;
+      color: var(--color-muted-text);
+    }
+
+    /* Tombol Tab Pemilih Kandidat */
+    .cv-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .tab-btn {
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--color-primary-text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: #000000;
+    }
+
+    .tab-btn.active {
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
+    }
+
+    .print-bar {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 900px;
+      margin: 0 auto 16px;
+    }
+
+    .print-btn {
+      background: transparent;
+      border: 1px solid #0f172a;
+      color: #0f172a;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .print-btn:hover {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .cv-panel {
+      display: none;
+      animation: fadeRise 0.5s ease-out forwards;
+    }
+
+    .cv-panel.active {
+      display: block;
+    }
+
+    /* =========================================
+       4. STYLE MASING-MASING CV (JILL, ABRAHAM, KEISHA)
+       ========================================= */
+    .cv-jill {
+      width: 800px; max-width: 100%; margin: auto; background: white; padding: 40px; font-family: Arial, sans-serif; color: #222; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .cv-jill .header { background: #ff8a00; padding: 25px; margin-bottom: 25px; }
+    .cv-jill .header h1 { margin: 0; font-size: 32px; color: #222; }
+    .cv-jill .header p { margin: 5px 0 0; font-size: 14px; }
+    .cv-jill .contact { font-size: 13px; margin-bottom: 25px; }
+    .cv-jill .contact span { margin-right: 20px; display: inline-block; margin-bottom: 5px; }
+    .cv-jill .section { margin-bottom: 25px; }
+    .cv-jill .section-title { font-size: 17px; font-weight: bold; border-bottom: 3px solid #ff8a00; padding-bottom: 5px; margin-bottom: 12px; }
+    .cv-jill .item { margin-bottom: 15px; }
+    .cv-jill .item h3 { margin: 0; font-size: 15px; }
+    .cv-jill .date { color: #ff8a00; font-size: 12px; font-weight: bold; margin: 3px 0; }
+    .cv-jill .item p { margin: 0; font-size: 13px; line-height: 1.5; }
+    .cv-jill .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cv-jill .skill { background: #fff1dc; padding: 9px; font-size: 13px; }
+
+    .cv-abraham {
+      width: 100%; max-width: 900px; margin: auto; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(2,6,23,0.15); overflow: hidden; display: grid; grid-template-columns: 320px 1fr; border: 1px solid rgba(11,37,69,0.06); color: #0b2545;
+    }
+    .cv-abraham .sidebar { background: linear-gradient(180deg, rgba(11,37,69,0.95), rgba(11,37,69,0.99)); color: #eef6ff; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+    .cv-abraham .photo { width: 80px; height: 80px; border-radius: 999px; background: linear-gradient(135deg, #1f6f8b, #0e4b6b); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px; color: #fff; flex-shrink: 0; }
+    .cv-abraham .name { font-size: 19px; font-weight: 700; }
+    .cv-abraham .role { font-size: 13px; color: rgba(238,246,255,0.85); margin-top: 2px; }
+    .cv-abraham .sidebar h4 { margin: 0 0 6px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(238,246,255,0.9); }
+    .cv-abraham .meta { font-size: 13.5px; color: rgba(238,246,255,0.95); line-height: 1.4; }
+    .cv-abraham .sidebar .muted { color: rgba(238,246,255,0.7); font-size: 12.5px; }
+    .cv-abraham .skill { background: rgba(255,255,255,0.08); padding: 8px 10px; border-radius: 8px; font-size: 13px; }
+    .cv-abraham .content { padding: 28px 32px; color: #06203a; }
+    .cv-abraham .section { margin-bottom: 20px; }
+    .cv-abraham .title-main { display: flex; justify-content: space-between; align-items: center; }
+    .cv-abraham .title-main h1 { margin: 0; font-size: 22px; color: #0b2545; }
+    .cv-abraham .subtitle { color: #6b7280; font-size: 13px; margin-top: 4px; }
+    .cv-abraham .summary { margin-top: 10px; padding: 14px; background: #fbfdff; border-radius: 8px; border: 1px solid rgba(11,37,69,0.06); color: #16324a; font-size: 14px; line-height: 1.5; }
+    .cv-abraham .list { list-style: none; padding: 0; margin: 0; }
+    .cv-abraham .item { padding: 12px 0; border-bottom: 1px dashed rgba(11,37,69,0.08); }
+    .cv-abraham .item:last-child { border-bottom: 0; }
+    .cv-abraham .item h3 { margin: 0; font-size: 15px; color: #0b2545; }
+    .cv-abraham .content .muted { font-size: 13px; color: #6b7280; margin-top: 4px; }
+    .cv-abraham .chip { display: inline-block; background: #1f6f8b; color: white; padding: 6px 12px; border-radius: 999px; font-size: 12px; margin-right: 6px; margin-top: 6px; }
+    .cv-abraham .row { display: grid; grid-template-columns: 1fr 110px; gap: 12px; align-items: start; }
+    .cv-abraham .period { font-size: 13px; color: #6b7280; text-align: right; }
+
+    .cv-keisha {
+      max-width: 900px; margin: auto; background: white; display: grid; grid-template-columns: 270px 1fr; box-shadow: 0 10px 35px rgba(0,0,0,0.12); font-family: Arial, Helvetica, sans-serif; color: #232b37; line-height: 1.5;
+    }
+    .cv-keisha .sidebar { background: #0f2648; color: white; padding: 40px 28px; }
+    .cv-keisha .photo { width: 135px; height: 135px; margin: 0 auto 35px; border-radius: 50%; background: #cbd5e1; border: 5px solid white; display: flex; align-items: center; justify-content: center; color: #0f2648; font-weight: bold; font-size: 14px; }
+    .cv-keisha .side-section { margin-bottom: 35px; }
+    .cv-keisha .side-title { background: #193760; padding: 9px 12px; margin: 0 -28px 18px; padding-left: 28px; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; }
+    .cv-keisha .contact-item { margin-bottom: 15px; font-size: 13px; word-break: break-word; }
+    .cv-keisha .contact-label { font-weight: bold; margin-bottom: 3px; }
+    .cv-keisha .sidebar ul { list-style: none; }
+    .cv-keisha .sidebar li { font-size: 13px; margin-bottom: 10px; position: relative; padding-left: 15px; }
+    .cv-keisha .sidebar li::before { content: "•"; position: absolute; left: 0; color: #cbd5e1; }
+    .cv-keisha .main { padding: 50px 50px 40px; }
+    .cv-keisha .name { font-size: 43px; line-height: 1; color: #0f2648; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; }
+    .cv-keisha .subtitle { color: #193760; font-size: 13px; font-weight: bold; letter-spacing: 3px; margin-bottom: 45px; }
+    .cv-keisha .section { margin-bottom: 38px; }
+    .cv-keisha .section-title { color: #193760; font-size: 25px; margin-bottom: 22px; border-bottom: 3px solid #193760; padding-bottom: 8px; }
+    .cv-keisha .education-item { display: grid; grid-template-columns: 75px 1fr; gap: 15px; margin-bottom: 22px; }
+    .cv-keisha .year { color: #66707d; font-size: 12px; font-weight: bold; }
+    .cv-keisha .education-title { font-size: 15px; font-weight: bold; color: #232b37; }
+    .cv-keisha .education-place { font-size: 13px; color: #66707d; margin-top: 3px; }
+    .cv-keisha .experience-item { margin-bottom: 23px; }
+    .cv-keisha .experience-title { font-size: 15px; font-weight: bold; color: #232b37; margin-bottom: 7px; }
+    .cv-keisha .experience-item ul { padding-left: 20px; }
+    .cv-keisha .experience-item li { font-size: 13px; margin-bottom: 5px; }
+    .cv-keisha .footer { margin-top: 50px; font-size: 10px; color: #8a929c; border-top: 1px solid #ddd; padding-top: 12px; }
+
+    /* =========================================
+       5. MINI GAME PUZZLE SECTION (TAMBAHAN BARU)
+       ========================================= */
+    .puzzle-section {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 80px 20px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .puzzle-container {
+      max-width: 400px;
+      margin: 30px auto 0;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .puzzle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .puzzle-tile {
+      aspect-ratio: 1;
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .puzzle-tile:hover {
+      background: #334155;
+    }
+
+    .puzzle-tile.empty {
+      background: transparent;
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      cursor: default;
+    }
+
+    .puzzle-message {
+      font-size: 16px;
+      font-weight: 500;
+      min-height: 24px;
+      margin-bottom: 16px;
+      color: #38bdf8;
+    }
+
+    .puzzle-btn {
+      background: #ffffff;
+      color: #0f172a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .puzzle-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* =========================================
+       6. RESPONSIVITAS & PRINT
+       ========================================= */
+    @media (max-width: 820px) {
+      .navbar { grid-template-columns: 1fr 1fr; padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 48px; letter-spacing: -1.5px; }
+      .hero-subtitle { font-size: 16px; }
+      .pill-btn--lg { padding: 16px 40px; margin-top: 36px; }
+      .cv-abraham { grid-template-columns: 1fr; }
+      .cv-keisha { display: block; }
+    }
+
+    @media print {
+      .hero-wrapper, .showcase-header, .cv-tabs, .print-bar, .puzzle-section {
+        display: none !important;
+      }
+      body { background: white; padding: 0; }
+      .cv-showcase-section { padding: 0; max-width: 100%; }
+      .cv-jill, .cv-abraham, .cv-keisha { box-shadow: none; width: 100%; max-width: 100%; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       BAGIAN 1: HERO SECTION (EDITORIAL CINEMATIC)
+       ========================================= -->
+  <div class="hero-wrapper">
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="https://designerstephen.github.io/public-assets/videos/serene-art-hero.mp4" type="video/mp4">
+      Browser Anda tidak mendukung tag video.
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <header class="navbar">
+      <a href="#" class="brand-logo">FSPro<sup>&reg;</sup></a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#direktori-cv" onclick="pilihCV('jill')">Jill Ekklesia</a></li>
+          <li><a href="#direktori-cv" onclick="pilihCV('abraham')">Abraham Asher</a></li>
+          <li><a href="#direktori-cv" onclick="pilihCV('keisha')">Keisha Anabella</a></li>
+          <li><a href="#puzzle-game">Mini Game</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-action">
+        <a href="#direktori-cv" class="pill-btn pill-btn--sm">Lihat 3 CV</a>
+      </div>
+    </header>
+
+    <main class="hero-content">
+      <h1 class="hero-title animate-item delay-1">
+        Tugas <em>FSPro</em> IRL
+      </h1>
+
+      <p class="hero-subtitle animate-item delay-2">
+        Jelajahi rekam jejak akademik, keterampilan bahasa, serta pengalaman organisasi dari tiga kandidat muda berbakat.
+      </p>
+
+      <div class="animate-item delay-3">
+        <a href="#direktori-cv" class="pill-btn pill-btn--lg">Curriculum Vitae</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================
+       BAGIAN 2: DIREKTORI 3 CV INTERAKTIF
+       ========================================= -->
+  <section id="direktori-cv" class="cv-showcase-section">
+    <div class="showcase-header">
+      <h2>Curriculum Vitae</h2>
+      <p>Pilih nama kandidat di bawah ini untuk melihat profil lengkap atau mencetaknya ke PDF.</p>
+    </div>
+
+    <div class="cv-tabs">
+      <button class="tab-btn active" id="btn-jill" onclick="pilihCV('jill')">1. Jill Ekklesia</button>
+      <button class="tab-btn" id="btn-abraham" onclick="pilihCV('abraham')">2. Abraham Asher Ndun</button>
+      <button class="tab-btn" id="btn-keisha" onclick="pilihCV('keisha')">3. Keisha Anabella</button>
+    </div>
+
+    <div class="print-bar">
+      <button class="print-btn" onclick="window.print()">🖨️ Cetak / Simpan PDF CV Ini</button>
+    </div>
+
+    <!-- PANEL CV 1 -->
+    <div id="panel-jill" class="cv-panel active">
+      <div class="cv-jill">
+        <div class="header">
+          <h1>Jill Ekklesia</h1>
+          <p>Student | Hospitality & Administration</p>
+        </div>
+        <div class="contact">
+          <span>📧 jilongcoyy@gmail.com</span>
+          <span>📱 088220373372</span>
+          <span>📍 123 Anywhere St., Any City</span>
+        </div>
+        <div class="section">
+          <div class="section-title">PROFIL</div>
+          <p style="font-size: 13.5px; line-height: 1.6;">
+            Pelajar yang memiliki kemampuan berkomunikasi dengan bahasa Mandarin. Memiliki ketertarikan di bidang perhotelan dan hospitality. Mudah beradaptasi, dapat bekerja sama dengan baik serta memiliki keinginan untuk mengembangkan diri menjadi lebih baik.
+          </p>
+        </div>
+        <div class="section">
+          <div class="section-title">PENDIDIKAN</div>
+          <div class="item">
+            <h3>SMA BPK PENABUR HOLIS</h3>
+            <div class="date">2024 — 2027</div>
+            <p>Sekolah Menengah Atas</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">PENGALAMAN</div>
+          <div class="item">
+            <h3>Admin & Customer Service</h3>
+            <div class="date">2022 — 2026</div>
+            <p>Membalas pesan customer, membantu mencatat dan menjadwalkan pesanan.</p>
+          </div>
+          <div class="item">
+            <h3>Model Nailart</h3>
+            <div class="date">2025 — 2026</div>
+            <p>Menjadi model untuk berbagai hasil nailart.</p>
+          </div>
+          <div class="item">
+            <h3>OSIS — Bidang Kewirausahaan</h3>
+            <div class="date">2021 — 2023</div>
+            <p>Mengikuti kegiatan organisasi OSIS dan membantu mengumpulkan dana untuk kegiatan.</p>
+          </div>
+          <div class="item">
+            <h3>Pramuka</h3>
+            <div class="date">2021 — 2024</div>
+            <p>Menjadi anggota organisasi pramuka.</p>
+          </div>
+          <div class="item">
+            <h3>Tim Multimedia & Guru Sekolah Minggu</h3>
+            <p>Terlibat dalam kegiatan pelayanan di gereja.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">KETERAMPILAN</div>
+          <div class="skills">
+            <div class="skill">Bahasa Mandarin — HSK 3</div>
+            <div class="skill">Administrasi sederhana</div>
+            <div class="skill">Pencatatan dan pengelolaan data</div>
+            <div class="skill">Pencatatan keuangan sederhana</div>
+            <div class="skill">Membuat kue dan dessert</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">SERTIFIKASI & PRESTASI</div>
+          <div class="item">
+            <p>• Sertifikat One Day Learn Chinese</p>
+            <p>• Sertifikat kursus nailart</p>
+            <p>• Juara 3 Chinese Language & Culture Competition</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL CV 2 -->
+    <div id="panel-abraham" class="cv-panel">
+      <article class="cv-abraham" role="document">
+        <aside class="sidebar">
+          <div style="display:flex;gap:14px;align-items:center">
+            <div class="photo">AA</div>
+            <div>
+              <div class="name">Abraham Asher Ndun</div>
+              <div class="role">Pelajar • Lulusan Baru</div>
+            </div>
+          </div>
+          <div>
+            <h4>Kontak</h4>
+            <div class="meta">
+              <div class="muted">Alamat</div>
+              <div>THI Blok A2 No.10</div>
+              <div class="muted" style="margin-top:8px">Telepon</div>
+              <div>+62 813 4942 9360</div>
+              <div class="muted" style="margin-top:8px">Email</div>
+              <div>Beramerame8@gmail.com</div>
+            </div>
+          </div>
+          <div>
+            <h4>Data Pribadi</h4>
+            <div class="meta">
+              <div><strong>Tempat, Tgl Lahir:</strong> Pasuruan, 10 Agustus 2009</div>
+              <div><strong>Kewarganegaraan:</strong> Indonesia</div>
+              <div><strong>Agama:</strong> Kristen</div>
+              <div><strong>Status:</strong> Pelajar</div>
+            </div>
+          </div>
+          <div>
+            <h4>Kemampuan Bahasa</h4>
+            <div class="meta">
+              <div>Bahasa Inggris — <span class="muted">Aktif</span></div>
+              <div>Bahasa Mandarin — <span class="muted">Dasar</span></div>
+            </div>
+          </div>
+          <div>
+            <h4>Sertifikasi</h4>
+            <div class="skill">IELTS 5 &middot; HSK 2</div>
+          </div>
+        </aside>
+
+        <div class="content">
+          <header class="section title-main">
+            <div>
+              <h1>Abraham Asher Ndun</h1>
+              <div class="subtitle">Ringkasan singkat, tujuan karir dan keunggulan utama</div>
+            </div>
+          </header>
+          <section class="section">
+            <h4 style="margin:0 0 8px 0; font-size: 13px; text-transform: uppercase; color: #1f6f8b;">Ringkasan</h4>
+            <div class="summary">
+              Pelajar yang berprestasi dengan minat kuat pada matematika dan sains. Memiliki pengalaman kompetitif (Finalis Olimpiade Sains Nasional & Finalis Matematika Nasional 2023). Mencari kesempatan magang atau program pengembangan untuk menerapkan kemampuan analitis dan belajar cepat.
+            </div>
+          </section>
+          <section class="section">
+            <h4 style="margin:0 0 8px 0; font-size: 13px; text-transform: uppercase; color: #1f6f8b;">Pendidikan</h4>
+            <ul class="list">
+              <li class="item">
+                <div class="row">
+                  <div>
+                    <h3>SMA PENABUR HOLIS</h3>
+                    <div class="muted">Jurusan IPA</div>
+                  </div>
+                  <div class="period">2024 - 2027</div>
+                </div>
+              </li>
+              <li class="item">
+                <div class="row">
+                  <div>
+                    <h3>SMPN 1 Tg. Selor</h3>
+                    <div class="muted">Program / kegiatan ekstrakurikuler</div>
+                  </div>
+                  <div class="period">2021 - 2024</div>
+                </div>
+              </li>
+              <li class="item">
+                <div class="row">
+                  <div>
+                    <h3>SDN 1 Tg. Selor</h3>
+                    <div class="muted">Sekolah dasar</div>
+                  </div>
+                  <div class="period">2015 - 2021</div>
+                </div>
+              </li>
+            </ul>
+          </section>
+          <section class="section">
+            <h4 style="margin:0 0 8px 0; font-size: 13px; text-transform: uppercase; color: #1f6f8b;">Prestasi & Penghargaan</h4>
+            <ul class="list">
+              <li class="item">
+                <h3>Finalis — Olimpiade Sains Nasional</h3>
+                <div class="muted">Prestasi tingkat nasional</div>
+              </li>
+              <li class="item">
+                <h3>Finalis — Cabang Matematika Nasional 2023</h3>
+                <div class="muted">Tingkat nasional, 2023</div>
+              </li>
+            </ul>
+          </section>
+          <section class="section">
+            <h4 style="margin:0 0 8px 0; font-size: 13px; text-transform: uppercase; color: #1f6f8b;">Keterampilan</h4>
+            <div>
+              <span class="chip">Analitis</span>
+              <span class="chip">Matematika</span>
+              <span class="chip">Pemecahan Masalah</span>
+              <span class="chip">Komunikasi</span>
+            </div>
+          </section>
+        </div>
+      </article>
+    </div>
+
+    <!-- PANEL CV 3 -->
+    <div id="panel-keisha" class="cv-panel">
+      <div class="cv-keisha">
+        <aside class="sidebar">
+          <div class="photo">FOTO</div>
+          <div class="side-section">
+            <h3 class="side-title">Kontak</h3>
+            <div class="contact-item">
+              <div class="contact-label">WhatsApp</div>
+              087776738388
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Email</div>
+              anabellakeisha@gmail.com
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Instagram</div>
+              @anabellakeisha
+            </div>
+          </div>
+          <div class="side-section">
+            <h3 class="side-title">Bahasa</h3>
+            <ul>
+              <li>Bahasa Indonesia</li>
+              <li>Bahasa Inggris</li>
+              <li>Bahasa Mandarin</li>
+            </ul>
+          </div>
+          <div class="side-section">
+            <h3 class="side-title">Kelebihan</h3>
+            <ul>
+              <li>Manajemen waktu</li>
+              <li>Kerjasama tim</li>
+              <li>Berpikir kritis</li>
+              <li>Komunikasi</li>
+              <li>Pemecahan masalah</li>
+            </ul>
+          </div>
+        </aside>
+        <main class="main">
+          <h1 class="name">KEISHA<br>ANABELLA</h1>
+          <div class="subtitle">CURRICULUM VITAE</div>
+          <section class="section">
+            <h2 class="section-title">Pendidikan</h2>
+            <div class="education-item">
+              <div class="year">12–13</div>
+              <div>
+                <div class="education-title">PG</div>
+                <div class="education-place">Harapan Kasih</div>
+              </div>
+            </div>
+            <div class="education-item">
+              <div class="year">13–15</div>
+              <div>
+                <div class="education-title">TK</div>
+                <div class="education-place">Harapan Kasih</div>
+              </div>
+            </div>
+            <div class="education-item">
+              <div class="year">15–21</div>
+              <div>
+                <div class="education-title">Sekolah Dasar</div>
+                <div class="education-place">Bintang Mulia</div>
+              </div>
+            </div>
+            <div class="education-item">
+              <div class="year">21–24</div>
+              <div>
+                <div class="education-title">Sekolah Menengah Pertama</div>
+                <div class="education-place">Bintang Mulia</div>
+              </div>
+            </div>
+            <div class="education-item">
+              <div class="year">24–27</div>
+              <div>
+                <div class="education-title">Sekolah Menengah Atas</div>
+                <div class="education-place">BPK Penabur Holis</div>
+              </div>
+            </div>
+          </section>
+          <section class="section">
+            <h2 class="section-title">Pengalaman</h2>
+            <div class="experience-item">
+              <div class="experience-title">OSIS</div>
+              <ul>
+                <li>Anggota OSIS SMP 2021–2022</li>
+                <li>Anggota OSIS SMP 2022–2023</li>
+              </ul>
+            </div>
+            <div class="experience-item">
+              <div class="experience-title">Lomba</div>
+              <ul>
+                <li>Juara 3 Chinese Language</li>
+                <li>Culture Competition 2021</li>
+              </ul>
+            </div>
+            <div class="experience-item">
+              <div class="experience-title">Organisasi Gereja</div>
+              <ul>
+                <li>Tim multimedia sejak 2019</li>
+                <li>Guru sekolah minggu sejak 2020</li>
+              </ul>
+            </div>
+          </section>
+          <div class="footer">
+            CV digital & siap cetak • Keisha Anabella
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       BAGIAN 3: MINI GAME PUZZLE (PALING BAWAH)
+       ========================================= -->
+  <section id="puzzle-game" class="puzzle-section">
+    <h2 style="font-family: var(--font-display); font-size: 42px; font-weight: 400; margin-bottom: 8px;">Mini Puzzle Challenge</h2>
+    <p style="color: #94a3b8; font-size: 15px;">Susun ubin angka dari 1 sampai 8 berurutan dengan mengkliknya ke kotak kosong!</p>
+    
+    <div class="puzzle-container">
+      <div id="puzzle-msg" class="puzzle-message">Ayo mulai bermain!</div>
+      <div id="puzzle-grid" class="puzzle-grid">
+        <!-- Ubin akan dirender otomatis lewat JavaScript -->
+      </div>
+      <button class="puzzle-btn" onclick="acakPuzzle()">Acak Ulang</button>
+    </div>
+  </section>
+
+  <!-- =========================================
+       BAGIAN 4: JAVASCRIPT INTERAKTIF
+       ========================================= -->
+  <script>
+    // 1. Fungsi Navigasi Tab CV
+    function pilihCV(nama) {
+      const semuaPanel = document.querySelectorAll('.cv-panel');
+      semuaPanel.forEach(panel => panel.classList.remove('active'));
+
+      const semuaTombol = document.querySelectorAll('.tab-btn');
+      semuaTombol.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById('panel-' + nama).classList.add('active');
+      document.getElementById('btn-' + nama).classList.add('active');
+    }
+
+    // 2. Logika Mini Game Puzzle Angka (3x3)
+    let board = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+
+    function renderPuzzle() {
+      const gridEl = document.getElementById('puzzle-grid');
+      gridEl.innerHTML = '';
+      
+      board.forEach((val, idx) => {
+        const tile = document.createElement('div');
+        tile.className = 'puzzle-tile' + (val === "" ? ' empty' : '');
+        tile.innerText = val;
+        tile.onclick = () => pindahUbin(idx);
+        gridEl.appendChild(tile);
+      });
+    }
+
+    function pindahUbin(idx) {
+      const kosongIdx = board.indexOf("");
+      
+      // Cek apakah ubin yang diklik bersebelahan dengan kotak kosong
+      const barisKlik = Math.floor(idx / 3);
+      const kolKlik = idx % 3;
+      const barisKosong = Math.floor(kosongIdx / 3);
+      const kolKosong = kosongIdx % 3;
+
+      const selisih = Math.abs(barisKlik - barisKosong) + Math.abs(kolKlik - kolKosong);
+
+      if (selisih === 1) {
+        // Tukar posisi
+        board[kosongIdx] = board[idx];
+        board[idx] = "";
+        renderPuzzle();
+        cekKemenangan();
+      }
+    }
+
+    function acakPuzzle() {
+      // Mengacak papan secara sederhana namun valid
+      for (let i = 0.5; i > 0; i -= Math.random()) {
+        board.sort(() => Math.random() - 0.5);
+      }
+      document.getElementById('puzzle-msg').innerText = "Semoga berhasil menyusunnya!";
+      renderPuzzle();
+    }
+
+    function cekKemenangan() {
+      const kemenangan = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+      const menang = board.every((val, i) => val === kemenangan[i]);
+      
+      if (menang) {
+        document.getElementById('puzzle-msg').innerText = "🎉 Selamat! Kamu berhasil menyelesaikan puzzle!";
+      }
+    }
+
+    // Jalankan render puzzle saat halaman dimuat
+    acakPuzzle();
+  </script>
+
+</body>
+</html>
